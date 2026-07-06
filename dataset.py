@@ -91,7 +91,7 @@ class RegistrationData:
         val_manifest: path to a JSON manifest used for validation, or None.
         spatial_size: target volume size after center pad/crop, (H, W, D).
         pixdim: optional target voxel spacing (sx, sy, sz) in mm; resamples if given.
-        augment: whether to apply light training-time augmentation (Gaussian noise).
+        augment: whether to apply training-time augmentation.
     """
 
     def __init__(self, train_manifest=None, val_manifest=None,
@@ -126,6 +126,8 @@ class RegistrationData:
                                                method="symmetric", mode="constant"))
         if augment:
             train_steps.append(RandGaussianNoised(keys=["fixed_image", "moving_image"], prob=0.6))
+            train_steps.append(RandomMotion(keys=["fixed_image", "moving_image"], p=0.3, degress=10, translation=30))
+            train_steps.append(RandomBiasField(keys=["fixed_image", "moving_image"], p=0.6, coefficients=0.4))
 
         self.train_transforms = Compose(train_steps)
         self.val_transforms = Compose(val_steps)
