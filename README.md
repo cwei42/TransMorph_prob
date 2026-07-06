@@ -61,3 +61,4 @@ python val.py --val-manifest data/val.json --ckpt path/to/checkpoint.ckpt \
 `--save-samples-for` selects which validation batch indices get full DDF-sample propagation to contours/doses written to disk (this is expensive to do for every case).
 
 
+Contact: Chengtao.Wei@med.uni-muenchen.de
