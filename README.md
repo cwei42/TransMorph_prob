@@ -8,28 +8,16 @@ TM-prob predicts a voxel-wise **Gaussian distribution over dense displacement fi
 
 *The fixed and moving images are concatenated and passed through a TransMorph (transformer-convolution) backbone to predict a voxel-wise mean deformation velocity field (DVF) and diagonal covariance of the DDF. The mean DVF is integrated via scaling-and-squaring into a diffeomorphic mean DDF; a DDF sample is then drawn via the reparameterization trick with frequency-domain correlated noise.*
 
-## Why
-
-A single deterministic displacement field gives no indication of where a registration is unreliable. In online adaptive MRgRT, that matters: registration can degrade locally due to low tissue contrast, residual motion, or anatomy outside the training distribution, and unquantified displacement error propagates directly into contour and accumulated-dose uncertainty. TM-prob produces calibrated, spatially resolved uncertainty in a single forward pass plus lightweight sampling — avoiding the repeated stochastic inference required by Monte Carlo dropout or ensembles — so it stays compatible with the tight time budget of online adaptive treatment sessions.
-
 ## Model
 
 - **Backbone**: TransMorph, a hybrid transformer/convolutional architecture for 3D deformable image registration ([Chen et al., 2022](https://github.com/junyuchen245/TransMorph_Transformer_for_Medical_Image_Registration)).
 - **Output**: voxel-wise mean DVF and log-variance; the mean is integrated via scaling-and-squaring into a diffeomorphic DDF.
 - **Uncertainty sampling**: reparameterization with noise filtered in the frequency domain (anisotropic Gaussian kernel, physical correlation length in mm) to produce spatially correlated DDF samples.
-- **Loss**: image MSE + bending-energy regularization + Dice (auxiliary label supervision) + a frequency-domain Gaussian-process KL term regularizing the predicted variance toward a prior, with a warm-up schedule so the model first learns accurate alignment before the variance term is enabled.
+- **Loss**: image MSE + bending-energy regularization + a frequency-domain Gaussian-process KL term regularizing the predicted variance toward a prior. The training starts with a warm-up schedule so the model first learns accurate alignment before the variance term is enabled.
 - **Downstream uncertainty propagation**: DDF samples can be warped through to organ contours (including dilated GTV margins) and dose distributions, giving mean/std maps for clinical review.
 
-See [`model.py`](model.py) for the full implementation (`TMProb` LightningModule) and [`models/`](models) for the TransMorph backbone.
+The model is implementated using PyTorch Lightning and MONAI.
 
-
-## Installation
-
-```bash
-pip install -r requirements.txt
-```
-
-Requires a CUDA GPU for training/inference at typical volume sizes (e.g. 320×224×160).
 
 ## Data format
 
