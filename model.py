@@ -6,6 +6,10 @@ Predicts a voxel-wise Gaussian distribution over dense displacement fields
 Gaussian-process prior/reparameterization for spatially correlated
 uncertainty. See ``README.md`` for the model description and paper
 reference.
+
+Modified by: 
+Chengtao Wei
+2026/07/26
 """
 import os
 import time
