@@ -22,19 +22,6 @@ A single deterministic displacement field gives no indication of where a registr
 
 See [`model.py`](model.py) for the full implementation (`TMProb` LightningModule) and [`models/`](models) for the TransMorph backbone.
 
-## Repository layout
-
-```
-model.py               TMProb LightningModule + uncertainty sampling / TRE / contour-and-dose propagation utilities
-models/
-  TransMorph_bayesian_2.py   TransMorph backbone predicting (DVF mean, log-variance)
-  configs_TransMorph.py      Architecture configs (embed dim, depths, window size, ...)
-dataset.py              Manifest-driven paired-registration dataset (MONAI transforms)
-train.py                Training entry point
-val.py                  Validation / checkpoint evaluation entry point
-requirements.txt
-figures/architecture.png
-```
 
 ## Installation
 
@@ -85,12 +72,4 @@ python val.py --val-manifest data/val.json --ckpt path/to/checkpoint.ckpt \
 
 `--save-samples-for` selects which validation batch indices get full DDF-sample propagation to contours/doses written to disk (this is expensive to do for every case).
 
-## Citation
 
-This code accompanies the manuscript:
-
-> Chengtao Wei, Domagoj Radonic, Rabea Klaar, Natascha Hohmann, Sebastian N. Marschner, Chukwuka Eze, Stefanie Corradini, Claus Belka, Guillaume Landry, Moritz Rabe, Christopher Kurz.
-> **An Uncertainty-aware Deep Learning-based Registration Model for Adaptive Lung Cancer Radiotherapy.**
-> Department of Radiation Oncology, LMU University Hospital, LMU Munich. *Manuscript under review.*
-
-Please update this citation with the final venue/DOI once published, and add a `LICENSE` file before making the repository public.
