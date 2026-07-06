@@ -4,7 +4,7 @@ A variational Bayesian deep-learning model for **uncertainty-aware deformable im
 
 TM-prob predicts a voxel-wise **Gaussian distribution over dense displacement fields (DDFs)** — mean and variance — in a single forward pass, rather than a single deterministic deformation. Spatially correlated uncertainty samples are drawn via frequency-domain filtering with an anisotropic Gaussian-process prior, so the resulting displacement uncertainty is smooth and physically plausible rather than voxel-independent noise.
 
-![TM-prob architecture](figures/architecture.png)
+![TM-prob architecture](figures/Archi.png)
 
 *The fixed and moving images are concatenated and passed through a TransMorph (transformer-convolution) backbone to predict a voxel-wise mean deformation velocity field (DVF) and diagonal covariance of the DDF. The mean DVF is integrated via scaling-and-squaring into a diffeomorphic mean DDF; a DDF sample is then drawn via the reparameterization trick with frequency-domain correlated noise.*
 
@@ -61,4 +61,5 @@ python val.py --val-manifest data/val.json --ckpt path/to/checkpoint.ckpt \
 `--save-samples-for` selects which validation batch indices get full DDF-sample propagation to contours/doses written to disk (this is expensive to do for every case).
 
 
-Contact: Chengtao.Wei@med.uni-muenchen.de
+## Contact 
+Chengtao.Wei@med.uni-muenchen.de
