@@ -62,6 +62,7 @@ python val.py --val-manifest data/val.json --ckpt path/to/checkpoint.ckpt \
 
 
 ## Contact 
-Chengtao.Wei@med.uni-muenchen.de
-Guillaume.Landry@med.uni-muenchen.de
+[LMU ART lab group](https://lmu-art-lab.userweb.mwn.de/)\
+Chengtao.Wei@med.uni-muenchen.de\
+Guillaume.Landry@med.uni-muenchen.de\
 Christopher.Kurz@med.uni-muenchen.de
