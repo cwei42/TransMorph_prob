@@ -63,3 +63,5 @@ python val.py --val-manifest data/val.json --ckpt path/to/checkpoint.ckpt \
 
 ## Contact 
 Chengtao.Wei@med.uni-muenchen.de
+Guillaume.Landry@med.uni-muenchen.de
+Christopher.Kurz@med.uni-muenchen.de
